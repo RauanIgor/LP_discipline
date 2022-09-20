@@ -26,3 +26,5 @@ file_exist(string name){
 }
 dirent.h -> biblioteca;
 
+-o build/sloc2
+cmake -S src -B build
