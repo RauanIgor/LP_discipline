@@ -1,0 +1,28 @@
+struct RunOptions{
+    bool rec;
+    sort_t _> enum; // tipo de ordenaçao;
+
+    string input_name = "";
+    bool ascendig = true; asc || desc;
+}
+
+parse_cmd_line(argc/ argv) ///funcao para alimentar struct;
+
+ enum tipo do arquivo{
+    c = 0;
+    cpp
+    h
+    hpp
+    undef
+}
+
+////////
+file_exist(string name){
+    bool existe;
+    fsstream fs{name};
+    existe = fs.is_open()
+    fs.close()
+    return existe;
+}
+dirent.h -> biblioteca;
+
