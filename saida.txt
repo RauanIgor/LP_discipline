@@ -1,3 +1,3 @@
-O arquivo tem 99 linhas.
-O arquivo tem 4 linhas comentadas.
-O arquivo tem 23 linhas em branco.
+O arquivo tem 107 linhas.
+O arquivo tem 8 linhas comentadas.
+O arquivo tem 28 linhas em branco.

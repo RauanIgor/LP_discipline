@@ -35,18 +35,39 @@ class FileInfo {
 };
 
 
-bool l_comentario(std::string l){
-    bool b{false};
-    for(unsigned int i=0; i<l.length(); i++){
-        if(l[i] == '/' && l[i+1] == '/'){
-            b = true;
-        }
+
+//funcao para contar bolcos de comentarios.
+/*
+bool bloco_cometario(std::string linha, bool flag = false){
+  std::string b1_comments = "/ *";
+  std::string b2_comments = "* /";
+
+  size_t result = linha_entrada.find(b1_comments); 
+  size_t result_b2 = linha_entrada.find(b2_comments);
+  if (result!=std::string::npos){
+    flag = true;
   }
-    return b;
+  if(flag && result_b2!=std::string::npos){
+    file.n_comments++;
+    flag = false;
+  }
+}
+*/
+   
+
+
+// funação para contar comentarios //.
+bool l_comentario(std::string linha){
+  for(unsigned int i=0; i<linha.length(); i++){
+      if(linha[i] == '/' && linha[i+1] == '/'){
+          return true;
+      }
+    }
+  return false;
 }
 //Problem ao ler espaços em branco no arquivo .cpp (funciona no .txt)
-bool l_branca(std::string l){
-   return l.empty();
+bool l_branca(std::string linha){
+   return linha.empty();
 }
 
 
@@ -54,20 +75,40 @@ int main(){
     std::fstream arquivo;
     std::string linha_entrada;
     FileInfo file;
-    int blank{0};
+  
+
+    std::string b1_comments = "/*";
+    std::string b2_comments = "*/";
+    bool flag = false;
+    size_t result, result_b2;
     
     arquivo.open("ex1251.cpp", std::ios::in);
     
     while(std::getline(arquivo, linha_entrada)){
       //std::cout << linha_entrada << std::endl;
+        file.n_lines++; //conta linhas do arquivo
+
+
+
+        result = linha_entrada.find(b1_comments); 
+        result_b2 = linha_entrada.find(b2_comments);
+        if (result!=std::string::npos){
+          flag = true;
+        }
+        if(flag && result_b2!=std::string::npos){
+          file.n_comments++;
+          flag = false;
+        }
+
+
+
         //conta comentarios
-        file.n_lines++;
         if(l_comentario(linha_entrada)){
             file.n_comments++;
         }
         //conta linhas brancas --> ainda não funciona
         else if(l_branca(linha_entrada)){
-            blank++;
+            file.n_blank++;
         }
         //conta linhas totais do arquivo
     }
@@ -75,5 +116,5 @@ int main(){
     arquivo.close();
     std::cout << "O arquivo tem " << file.n_lines << " linhas." << std::endl;
     std::cout << "O arquivo tem " << file.n_comments << " linhas comentadas." << std::endl;
-    std::cout << "O arquivo tem " << blank << " linhas em branco." << "\n";
+    std::cout << "O arquivo tem " << file.n_blank << " linhas em branco." << "\n";
 }
